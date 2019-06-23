@@ -22,6 +22,9 @@
       <div class="container">
         @yield('content')
       </div>
+      <footer>
+        
+      </footer>
        <script src="{{asset('js/app.js')}}" crossorigin="anonymous"></script>
     </body>
 </html>

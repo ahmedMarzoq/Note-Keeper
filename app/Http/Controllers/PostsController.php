@@ -16,7 +16,7 @@ class PostsController extends Controller
     {
         $posts = collect(Post::all()) ;
         $sorted = $posts->sortByDesc('created_at');
-        return view('notes')->with('posts',$sorted);
+        return view('notes')->with('posts',$sorted) ;
     }
 
     /**
@@ -37,7 +37,17 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'title'=>'required',
+            'body' => 'required'
+        ]);
+        //dd($request->title,$request->body);
+        $post = new Post;
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->save();
+        return redirect('/');
+        //return 123;
     }
 
     /**

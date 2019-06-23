@@ -3,7 +3,6 @@
 @section('navButton')
 <button class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#exampleModal">New Note</button>
 @endsection
-
 @section('content')
           
         <br><h1>Notes</h1>
@@ -39,20 +38,31 @@
               <div class="modal-header text-white bg-info ">
                 <h5 class="modal-title " id="exampleModalLabel" >New Note </h5>
               </div>
-              <form>
-                  <div class="modal-body">
-                    <div class="form-group">
-                    <label for="exampleInputPassword1">Title</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" >
-                  </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Note</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <form method="POST" action="{{route('store')}}">
+                <div class="modal-body">  
+                     @csrf
+                      <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" name="title" required>
+                        @if($errors->has('title'))
+                          <span class="help-block text-danger">
+                            {{$errors->first('title')}}
+                          </span>
+                        @endif
+                      </div>
+                      <div class="form-group">
+                        <label>Note</label>
+                        <textarea class="form-control" name="body" rows="3" required></textarea>
+                        @if($errors->has('body'))
+                          <span class="help-block text-danger">
+                            {{$errors->first('body')}}
+                          </span>
+                        @endif
                       </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" name="submit">Save changes</button>
+                    <button type="submit" class="btn btn-primary" >Add new Note</button>
                   </div>
               </form>
             </div>
